@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./dist/index.js"></script>
+    <script src="./dist/admin.js"></script>
+    <script src="./controllers/dist/itemController.js"></script>
+    <script src="./controllers/dist/userController.js"></script>
+    <link rel="stylesheet" href="./dist/style.css" />
+    <link rel="stylesheet" href="./dist/admin.css" />
+  </head>
+  <body>
+    <div class="navBar__Container">
+      <nav>
+        <ul>
+          <li><a href="#login" onclick="showModal()">Login</a></li>
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="#cart">Cart</a></li>
+          <li><a href="#checkout">Checkout</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="./admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="admin__Container">
+      <h2>Add item</h2>
+      <input
+        type="text"
+        name="itemNameInput"
+        id="name__Input"
+        placeholder="Name"
+      />
+      <input type="text" name="srcInput" id="src__Input" placeholder="Src" />
+      <select name="typeInput" id="type__Input" placeholder="Type">
+        <option value="vegetables">Vegetables</option>
+        <option value="fruits">Fruits</option>
+        <option value="dairy">Dairy</option>
+        <option value="meat">Meat</option>
+        <option value="snacks">Snack</option>
+      </select>
+      <input
+        type="number"
+        name="priceInput"
+        id="price__Input"
+        placeholder="Price"
+      />
+      <button type="submit" onclick="handleAddItem()">submit</button>
+    </div>
+    <div id="item__Container"></div>
+  </body>
+</html>

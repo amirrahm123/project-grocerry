@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="./dist/index.js"></script>
+    <script src="./controllers/dist/itemController.js"></script>
+    <script src="./controllers/dist/userController.js"></script>
+
+    <link rel="stylesheet" href="./dist/style.css" />
+  </head>
+  <body>
+    <div class="navBar__Container">
+      <nav>
+        <ul>
+          <li><a href="#login" onclick="showModal()">Login</a></li>
+          <li><a href="#home">Home</a></li>
+          <li><a href="./cart.html">Cart</a></li>
+          <li><a href="#checkout">Checkout</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="./admin.html">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="register__Container">
+      <h2>Register</h2>
+      <input
+        type="text"
+        name="userNameInput"
+        id="name__Input"
+        placeholder="Name"
+      />
+      <input
+        type="password"
+        name="passwordInput"
+        id="password__Input"
+        placeholder="Password"
+      />
+      <h3>
+        Already have an account?
+        <a href="#login" onclick="showModal()">Login</a>
+      </h3>
+      <button type="submit" onclick="handleAddUser()">submit</button>
+    </div>
+
+    <!-- <div class="login__Container">
+      <h2>Login</h2>
+      <input
+        type="text"
+        name="userNameInput"
+        id="loginName__Input"
+        placeholder="Name"
+      />
+      <input
+        type="password"
+        name="passwordInput"
+        id="loginPassword__Input"
+        placeholder="Password"
+      />
+      <button onclick="handleLogin()">Login</button>
+    </div> -->
+
+    <div class="modal__wrapper">
+      <div class="modal__content">
+        <h2>Login</h2>
+        <input
+          type="text"
+          name="userNameInput"
+          id="loginName__Input"
+          placeholder="Name"
+        />
+        <input
+          type="password"
+          name="passwordInput"
+          id="loginPassword__Input"
+          placeholder="Password"
+        />
+        <button id="loginBtn" onclick="handleLoginAndCloseModal()">
+          Login
+        </button>
+      </div>
+    </div>
+    <div id="item__Container"></div>
+  </body>
+</html>
