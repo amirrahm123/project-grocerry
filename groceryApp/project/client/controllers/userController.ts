@@ -38,6 +38,8 @@ async function handleAddUser() {
       console.log(resJson);
       localStorage.setItem("id", resJson.id);
       localStorage.setItem("displayName", resJson.name);
+      localStorage.setItem("isAdmin", resJson.isAdmin);
+      navInit();
     } else {
       console.log("Failed to add User.");
     }
@@ -76,6 +78,9 @@ function handleLogin(ev: Event | undefined) {
         console.log(data);
         localStorage.setItem("id", data.id);
         localStorage.setItem("displayName", data.name);
+        localStorage.setItem("isAdmin", data.isAdmin);
+        navInit();
+        location.reload();
       })
       .catch((error) => {
         console.error(error);
@@ -83,4 +88,11 @@ function handleLogin(ev: Event | undefined) {
   } catch (error) {
     console.error(error);
   }
+}
+
+async function logOut() {
+  localStorage.removeItem("id");
+  localStorage.removeItem("name");
+  localStorage.removeItem("isAdmin");
+  location.reload();
 }

@@ -14,35 +14,50 @@
     <div class="navBar__Container">
       <nav>
         <ul>
-          <li><a href="#login" onclick="showModal()">Login</a></li>
+          <li>
+            <a href="#login" id="navLogin" onclick="showModal()">Login</a>
+          </li>
+
+          <li>
+            <a href="#register" id="navRegister" onclick="showRegisterModal()"
+              >Register</a
+            >
+          </li>
+
+          <li>
+            <a href="#login" id="navLogout" onclick="logOut()">Logout</a>
+          </li>
+
           <li><a href="#home">Home</a></li>
           <li><a href="./cart.html">Cart</a></li>
           <li><a href="#checkout">Checkout</a></li>
           <li><a href="#about">About Us</a></li>
-          <li><a href="./admin.html">Admin</a></li>
+          <li><a href="./admin.html" id="navAdmin">Admin</a></li>
         </ul>
       </nav>
     </div>
 
-    <div class="register__Container">
-      <h2>Register</h2>
-      <input
-        type="text"
-        name="userNameInput"
-        id="name__Input"
-        placeholder="Name"
-      />
-      <input
-        type="password"
-        name="passwordInput"
-        id="password__Input"
-        placeholder="Password"
-      />
-      <h3>
-        Already have an account?
-        <a href="#login" onclick="showModal()">Login</a>
-      </h3>
-      <button type="submit" onclick="handleAddUser()">submit</button>
+    <div class="modal__wrapper" id="register__Modal">
+      <div class="register__Container">
+        <h2>Register</h2>
+        <input
+          type="text"
+          name="userNameInput"
+          id="name__Input"
+          placeholder="Name"
+        />
+        <input
+          type="password"
+          name="passwordInput"
+          id="password__Input"
+          placeholder="Password"
+        />
+        <h3>
+          Already have an account?
+          <a href="#login" onclick="showModal()">Login</a>
+        </h3>
+        <button type="submit" onclick="handleAddUser()">submit</button>
+      </div>
     </div>
 
     <!-- <div class="login__Container">
@@ -62,7 +77,7 @@
       <button onclick="handleLogin()">Login</button>
     </div> -->
 
-    <div class="modal__wrapper">
+    <div class="modal__wrapper" id="login__Modal">
       <div class="modal__content">
         <h2>Login</h2>
         <input

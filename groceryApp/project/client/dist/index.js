@@ -36,9 +36,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 document.addEventListener("DOMContentLoaded", function () {
     getAndRenderItems();
-    var modalWrapper = document.querySelector(".modal__wrapper");
+    navInit();
+    var modalWrapper = document.querySelector("#login__Modal");
     modalWrapper.addEventListener("click", function (event) {
         if (event.target === modalWrapper) {
+            closeModal();
+        }
+    });
+    var registerModal = document.querySelector("#register__Modal");
+    registerModal.addEventListener("click", function (event) {
+        if (event.target === registerModal) {
             closeModal();
         }
     });
@@ -73,7 +80,7 @@ function showModal() {
     return __awaiter(this, void 0, void 0, function () {
         var modalWrapper;
         return __generator(this, function (_a) {
-            modalWrapper = document.querySelector(".modal__wrapper");
+            modalWrapper = document.getElementById("login__Modal");
             modalWrapper.style.display = "flex";
             return [2 /*return*/];
         });
@@ -81,10 +88,47 @@ function showModal() {
 }
 function closeModal() {
     return __awaiter(this, void 0, void 0, function () {
+        var loginModalWrapper, registerModalWrapper;
+        return __generator(this, function (_a) {
+            loginModalWrapper = document.querySelector("#login__Modal");
+            registerModalWrapper = document.querySelector("#register__Modal");
+            registerModalWrapper.style.display = "none";
+            loginModalWrapper.style.display = "none";
+            return [2 /*return*/];
+        });
+    });
+}
+function showRegisterModal() {
+    return __awaiter(this, void 0, void 0, function () {
         var modalWrapper;
         return __generator(this, function (_a) {
-            modalWrapper = document.querySelector(".modal__wrapper");
-            modalWrapper.style.display = "none";
+            modalWrapper = document.querySelector("#register__Modal");
+            console.log("registerModal");
+            modalWrapper.style.display = "flex";
+            return [2 /*return*/];
+        });
+    });
+}
+function navInit() {
+    return __awaiter(this, void 0, void 0, function () {
+        var id, isAdmin, navAdmin, navLogin, navRegister, navLogout;
+        return __generator(this, function (_a) {
+            id = localStorage.getItem("id");
+            isAdmin = localStorage.getItem("isAdmin");
+            if (!isAdmin) {
+                navAdmin = document.querySelector("#navAdmin");
+                navAdmin.style.display = "none";
+            }
+            if (id) {
+                navLogin = document.querySelector("#navLogin");
+                navRegister = document.querySelector("#navRegister");
+                navLogin.style.display = "none";
+                navRegister.style.display = "none";
+            }
+            else {
+                navLogout = document.querySelector("#navLogout");
+                navLogout.style.display = "none";
+            }
             return [2 /*return*/];
         });
     });

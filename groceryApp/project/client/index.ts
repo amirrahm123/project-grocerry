@@ -1,12 +1,23 @@
 document.addEventListener("DOMContentLoaded", () => {
   getAndRenderItems();
+  navInit();
 
   const modalWrapper = document.querySelector(
-    ".modal__wrapper"
+    "#login__Modal"
   ) as HTMLDivElement;
 
   modalWrapper.addEventListener("click", (event) => {
     if (event.target === modalWrapper) {
+      closeModal();
+    }
+  });
+
+  const registerModal = document.querySelector(
+    "#register__Modal"
+  ) as HTMLDivElement;
+
+  registerModal.addEventListener("click", (event) => {
+    if (event.target === registerModal) {
       closeModal();
     }
   });
@@ -26,14 +37,46 @@ async function handleLoginAndCloseModal(ev: Event) {
 }
 
 async function showModal() {
-  const modalWrapper = document.querySelector(
-    ".modal__wrapper"
+  const modalWrapper = document.getElementById(
+    "login__Modal"
   ) as HTMLDivElement;
   modalWrapper.style.display = "flex";
 }
 async function closeModal() {
-  const modalWrapper = document.querySelector(
-    ".modal__wrapper"
+  const loginModalWrapper = document.querySelector(
+    "#login__Modal"
   ) as HTMLDivElement;
-  modalWrapper.style.display = "none";
+  const registerModalWrapper = document.querySelector(
+    "#register__Modal"
+  ) as HTMLDivElement;
+  registerModalWrapper.style.display = "none";
+  loginModalWrapper.style.display = "none";
+}
+
+async function showRegisterModal() {
+  const modalWrapper = document.querySelector(
+    "#register__Modal"
+  ) as HTMLDivElement;
+  console.log("registerModal");
+  modalWrapper.style.display = "flex";
+}
+
+async function navInit() {
+  const id = localStorage.getItem("id");
+  const isAdmin = localStorage.getItem("isAdmin");
+  if (!isAdmin) {
+    const navAdmin = document.querySelector("#navAdmin") as HTMLAnchorElement;
+    navAdmin.style.display = "none";
+  }
+  if (id) {
+    const navLogin = document.querySelector("#navLogin") as HTMLAnchorElement;
+    const navRegister = document.querySelector(
+      "#navRegister"
+    ) as HTMLAnchorElement;
+    navLogin.style.display = "none";
+    navRegister.style.display = "none";
+  } else {
+    const navLogout = document.querySelector("#navLogout") as HTMLAnchorElement;
+    navLogout.style.display = "none";
+  }
 }

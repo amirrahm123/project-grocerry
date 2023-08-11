@@ -70,7 +70,7 @@ exports.addUser = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 return [4 /*yield*/, newUser.save()];
             case 1:
                 newUserDetails = _b.sent();
-                res.json({ name: name, id: newUserDetails._id });
+                res.json({ name: name, id: newUserDetails._id, isAdmin: newUserDetails.isAdmin });
                 return [3 /*break*/, 3];
             case 2:
                 err_1 = _b.sent();
@@ -92,7 +92,9 @@ exports.login = function (req, res) { return __awaiter(void 0, void 0, void 0, f
                 userDB = _b.sent();
                 if (!userDB)
                     throw new Error("Username or password are incorrect");
-                res.status(201).send({ name: userDB.name, id: userDB._id });
+                res
+                    .status(201)
+                    .send({ name: userDB.name, id: userDB._id, isAdmin: userDB.isAdmin });
                 return [3 /*break*/, 3];
             case 2:
                 error_2 = _b.sent();

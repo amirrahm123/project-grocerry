@@ -20,7 +20,7 @@ export const addUser = async (req: any, res: any) => {
       password: password,
     });
     const newUserDetails = await newUser.save();
-    res.json({ name, id: newUserDetails._id });
+    res.json({ name, id: newUserDetails._id, isAdmin: newUserDetails.isAdmin });
   } catch (err) {
     return res.json({ message: "error" });
   }
@@ -37,7 +37,9 @@ export const login = async (req: any, res: any) => {
 
     if (!userDB) throw new Error("Username or password are incorrect");
 
-    res.status(201).send({ name: userDB.name, id: userDB._id });
+    res
+      .status(201)
+      .send({ name: userDB.name, id: userDB._id, isAdmin: userDB.isAdmin });
   } catch (error: any) {
     console.error(error);
     res.status(500).send({ error: error.message });
