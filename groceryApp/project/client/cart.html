@@ -4,6 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css" />
     <script src="./dist/index.js"></script>
     <script src="./controllers/dist/itemController.js"></script>
     <script src="./controllers/dist/userController.js"></script>
@@ -20,8 +21,19 @@
           <li>
             <a href="#login" id="navLogin" onclick="showModal()">Login</a>
           </li>
-          <li><a href="#home">Home</a></li>
-          <li><a href="#cart">Cart</a></li>
+
+          <li>
+            <a href="#register" id="navRegister" onclick="showRegisterModal()"
+              >Register</a
+            >
+          </li>
+
+          <li>
+            <a href="#login" id="navLogout" onclick="logOut()">Logout</a>
+          </li>
+
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./cart.html">Cart</a></li>
           <li><a href="#checkout">Checkout</a></li>
           <li><a href="#about">About Us</a></li>
           <li><a href="./admin.html" id="navAdmin">Admin</a></li>

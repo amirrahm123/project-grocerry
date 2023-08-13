@@ -37,6 +37,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 document.addEventListener("DOMContentLoaded", function () {
     getAndRenderItems();
     navInit();
+    userMsg();
     var modalWrapper = document.querySelector("#login__Modal");
     modalWrapper.addEventListener("click", function (event) {
         if (event.target === modalWrapper) {
@@ -132,4 +133,15 @@ function navInit() {
             return [2 /*return*/];
         });
     });
+}
+function userMsg() {
+    var id = localStorage.getItem("id");
+    if (id) {
+        var name = localStorage.getItem("displayName");
+        var renderDiv = document.createElement("div");
+        renderDiv.classList.add("userMsg");
+        renderDiv.innerHTML = "<h1>Welcome back, " + name + "</h1>";
+        var containerElement = document.querySelector(".userMsg__Conatiner");
+        containerElement.appendChild(renderDiv);
+    }
 }

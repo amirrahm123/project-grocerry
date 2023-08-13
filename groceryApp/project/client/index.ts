@@ -1,6 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
   getAndRenderItems();
   navInit();
+  userMsg();
 
   const modalWrapper = document.querySelector(
     "#login__Modal"
@@ -78,5 +79,20 @@ async function navInit() {
   } else {
     const navLogout = document.querySelector("#navLogout") as HTMLAnchorElement;
     navLogout.style.display = "none";
+  }
+}
+
+function userMsg() {
+  const id = localStorage.getItem("id");
+  if (id) {
+    const name = localStorage.getItem("displayName");
+    const renderDiv = document.createElement("div");
+    renderDiv.classList.add("userMsg");
+    renderDiv.innerHTML = `<h1>Welcome back, ${name}</h1>`;
+
+    const containerElement = document.querySelector(
+      ".userMsg__Conatiner"
+    ) as HTMLDivElement;
+    containerElement.appendChild(renderDiv);
   }
 }
