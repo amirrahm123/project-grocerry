@@ -76,16 +76,43 @@ async function renderItem(itemId, name, src, type, price) {
   const renderDiv = document.createElement("div");
   renderDiv.id = itemId;
   const cartImg = "./shopping-cart-empty-side-view.png";
+  const isAdmin = localStorage.getItem("isAdmin") === "true";
   renderDiv.innerHTML = `<img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image"> ;
   <h1>${name}</h1> 
         <h1>Type: ${type}</h1> 
         <h1>Price: ${price}</h1> 
         <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
+        ${
+          isAdmin
+            ? `<button onclick="handleDeleteItem('${itemId}')">Delete</button>`
+            : ""
+        }
+        ${isAdmin ? `<button onclick="showUpdateModal()">Update</button>` : ""}
       `;
 
   renderDiv.classList.add("renderDiv");
   itemContainer.appendChild(renderDiv);
 }
+
+const handleDeleteItem = async (itemId) => {
+  try {
+    const res = await fetch(
+      `http://localhost:5500/item/delete-item/${itemId}`,
+      {
+        method: "DELETE",
+      }
+    );
+
+    if (res.ok) {
+      console.log("Item deleted successfully!");
+      location.reload();
+    } else {
+      console.log("Failed to delete item.");
+    }
+  } catch (error) {
+    console.error("Error deleting item:", error);
+  }
+};
 
 async function addToCart(itemId: string) {
   //get the user id

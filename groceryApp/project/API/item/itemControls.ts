@@ -29,6 +29,16 @@ export const addItem = async (req: any, res: any) => {
   }
 };
 
+export const deleteItem = async (req: any, res: any) => {
+  try {
+    const { itemId } = req.params;
+    await Item.findByIdAndRemove(itemId);
+    res.send("Item Deleted Successfully").status(200);
+  } catch (error) {
+    return res.send("Internal Server Error").status(500);
+  }
+};
+
 export const addToCart = async (req: any, res: any) => {
   try {
     //get the item id, user id

@@ -6,4 +6,5 @@ var itemControls_1 = require("./itemControls");
 router.get("/get-item", itemControls_1.getItem);
 router.post("/add-item", itemControls_1.addItem);
 router.put("/addToCart", itemControls_1.addToCart);
+router["delete"]("/delete-item/:itemId", itemControls_1.deleteItem);
 exports["default"] = router;

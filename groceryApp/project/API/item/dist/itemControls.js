@@ -43,7 +43,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.addToCart = exports.addItem = exports.getItem = void 0;
+exports.addToCart = exports.deleteItem = exports.addItem = exports.getItem = void 0;
 var userModel_1 = require("../user/userModel");
 var itemModel_1 = require("./itemModel");
 exports.getItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -85,6 +85,25 @@ exports.addItem = function (req, res) { return __awaiter(void 0, void 0, void 0,
             case 2:
                 err_1 = _b.sent();
                 return [2 /*return*/, res.json({ message: "error" })];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.deleteItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var itemId, error_2;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                itemId = req.params.itemId;
+                return [4 /*yield*/, itemModel_1["default"].findByIdAndRemove(itemId)];
+            case 1:
+                _a.sent();
+                res.send("Item Deleted Successfully").status(200);
+                return [3 /*break*/, 3];
+            case 2:
+                error_2 = _a.sent();
+                return [2 /*return*/, res.send("Internal Server Error").status(500)];
             case 3: return [2 /*return*/];
         }
     });

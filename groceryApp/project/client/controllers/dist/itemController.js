@@ -127,7 +127,7 @@ function handleAddItem() {
 }
 function renderItem(itemId, name, src, type, price) {
     return __awaiter(this, void 0, void 0, function () {
-        var itemContainer, renderDiv, cartImg;
+        var itemContainer, renderDiv, cartImg, isAdmin;
         return __generator(this, function (_a) {
             //Render Item
             console.log({ itemId: itemId, name: name, src: src, type: type, price: price });
@@ -135,16 +135,46 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv = document.createElement("div");
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
-            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\"> ;\n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n        <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n      ";
+            isAdmin = localStorage.getItem("isAdmin") === "true";
+            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\"> ;\n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n        <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n        " + (isAdmin
+                ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>"
+                : "") + "\n        " + (isAdmin ? "<button onclick=\"showUpdateModal()\">Update</button>" : "") + "\n      ";
             renderDiv.classList.add("renderDiv");
             itemContainer.appendChild(renderDiv);
             return [2 /*return*/];
         });
     });
 }
+var handleDeleteItem = function (itemId) { return __awaiter(_this, void 0, void 0, function () {
+    var res, error_3;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 2, , 3]);
+                return [4 /*yield*/, fetch("http://localhost:5500/item/delete-item/" + itemId, {
+                        method: "DELETE"
+                    })];
+            case 1:
+                res = _a.sent();
+                if (res.ok) {
+                    console.log("Item deleted successfully!");
+                    location.reload();
+                }
+                else {
+                    console.log("Failed to delete item.");
+                }
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _a.sent();
+                console.error("Error deleting item:", error_3);
+                return [3 /*break*/, 3];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
 function addToCart(itemId) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId, res, error_3, errorMessage;
+        var userId, res, error_4, errorMessage;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -168,8 +198,8 @@ function addToCart(itemId) {
                     }
                     return [3 /*break*/, 5];
                 case 3:
-                    error_3 = _a.sent();
-                    return [4 /*yield*/, error_3.json()];
+                    error_4 = _a.sent();
+                    return [4 /*yield*/, error_4.json()];
                 case 4:
                     errorMessage = _a.sent();
                     console.log(errorMessage);
@@ -180,7 +210,7 @@ function addToCart(itemId) {
     });
 }
 var renderCart = function () { return __awaiter(_this, void 0, void 0, function () {
-    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_4;
+    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_5;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -216,8 +246,8 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
                 });
                 return [3 /*break*/, 6];
             case 5:
-                error_4 = _a.sent();
-                console.error(error_4);
+                error_5 = _a.sent();
+                console.error(error_5);
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }
