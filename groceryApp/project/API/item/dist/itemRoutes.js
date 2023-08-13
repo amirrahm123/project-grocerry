@@ -5,4 +5,5 @@ var router = express_1["default"].Router();
 var itemControls_1 = require("./itemControls");
 router.get("/get-item", itemControls_1.getItem);
 router.post("/add-item", itemControls_1.addItem);
+router.put("/addToCart", itemControls_1.addToCart);
 exports["default"] = router;

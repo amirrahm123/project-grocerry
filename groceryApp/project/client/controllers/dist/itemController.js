@@ -135,10 +135,91 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv = document.createElement("div");
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
-            renderDiv.innerHTML = "<img class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\"> ;\n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n        <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n      ";
+            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\"> ;\n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n        <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n      ";
             renderDiv.classList.add("renderDiv");
             itemContainer.appendChild(renderDiv);
             return [2 /*return*/];
         });
     });
 }
+function addToCart(itemId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userId, res, error_3, errorMessage;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    userId = localStorage.getItem("id");
+                    if (!userId)
+                        return [2 /*return*/, alert("please login first.")];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 5]);
+                    return [4 /*yield*/, fetch("http://localhost:5500/item/addToCart", {
+                            method: "PUT",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ itemId: itemId, userId: userId })
+                        })];
+                case 2:
+                    res = _a.sent();
+                    if (res.ok) {
+                        alert("Item added successfully to the cart!");
+                    }
+                    return [3 /*break*/, 5];
+                case 3:
+                    error_3 = _a.sent();
+                    return [4 /*yield*/, error_3.json()];
+                case 4:
+                    errorMessage = _a.sent();
+                    console.log(errorMessage);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
+}
+var renderCart = function () { return __awaiter(_this, void 0, void 0, function () {
+    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_4;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                _a.trys.push([0, 5, , 6]);
+                return [4 /*yield*/, fetch("http://localhost:5500/user/get-user", {
+                        method: "GET"
+                    })];
+            case 1:
+                res = _a.sent();
+                return [4 /*yield*/, res.json()];
+            case 2:
+                users = _a.sent();
+                user_1 = users.filter(function (u) { return u._id == localStorage.getItem("id"); })[0];
+                console.log("user: ", user_1);
+                return [4 /*yield*/, fetch("http://localhost:5500/item/get-item", {
+                        method: "GET"
+                    })];
+            case 3:
+                itemsRes = _a.sent();
+                return [4 /*yield*/, itemsRes.json()];
+            case 4:
+                items = _a.sent();
+                filteredItems = items.filter(function (item) { var _a; return (_a = user_1.cart) === null || _a === void 0 ? void 0 : _a.includes(item._id); });
+                console.log("filteredItems", filteredItems);
+                itemContainer_1 = document.querySelector(".cart");
+                //render to screen
+                filteredItems === null || filteredItems === void 0 ? void 0 : filteredItems.map(function (item) {
+                    var renderDiv = document.createElement("div");
+                    renderDiv.id = item._id;
+                    renderDiv.innerHTML = "\n            <h1>" + item.name + "</h1> \n            <h1>Type: " + item.type + "</h1> \n            <h1>Price: " + item.price + "</h1> \n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n          ";
+                    renderDiv.classList.add("renderDiv");
+                    itemContainer_1.appendChild(renderDiv);
+                });
+                return [3 /*break*/, 6];
+            case 5:
+                error_4 = _a.sent();
+                console.error(error_4);
+                return [3 /*break*/, 6];
+            case 6: return [2 /*return*/];
+        }
+    });
+}); };

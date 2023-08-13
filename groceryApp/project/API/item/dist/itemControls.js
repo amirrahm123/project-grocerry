@@ -35,8 +35,16 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
-exports.addItem = exports.getItem = void 0;
+exports.addToCart = exports.addItem = exports.getItem = void 0;
+var userModel_1 = require("../user/userModel");
 var itemModel_1 = require("./itemModel");
 exports.getItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
     var data, error_1;
@@ -78,6 +86,35 @@ exports.addItem = function (req, res) { return __awaiter(void 0, void 0, void 0,
                 err_1 = _b.sent();
                 return [2 /*return*/, res.json({ message: "error" })];
             case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.addToCart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, itemId, userId, selectedUser, cart, err_2;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 3, , 4]);
+                _a = req.body, itemId = _a.itemId, userId = _a.userId;
+                return [4 /*yield*/, userModel_1["default"].findById(userId)];
+            case 1:
+                selectedUser = _b.sent();
+                if (!selectedUser)
+                    return [2 /*return*/, res.send("permission denied").status(403)];
+                cart = selectedUser.cart || [];
+                //update the user cart
+                return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: __spreadArrays(cart, [itemId]) })];
+            case 2:
+                //update the user cart
+                _b.sent();
+                res.send("user updated successfuly").status(200);
+                return [3 /*break*/, 4];
+            case 3:
+                err_2 = _b.sent();
+                res.send("Internal server error").status(500);
+                console.log(err_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
         }
     });
 }); };

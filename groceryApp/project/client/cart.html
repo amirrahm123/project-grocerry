@@ -7,6 +7,11 @@
     <script src="./dist/index.js"></script>
     <script src="./controllers/dist/itemController.js"></script>
     <script src="./controllers/dist/userController.js"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCart();
+      });
+    </script>
   </head>
   <body>
     <div class="navBar__Container">
@@ -23,5 +28,7 @@
         </ul>
       </nav>
     </div>
+
+    <div class="cart"></div>
   </body>
 </html>
