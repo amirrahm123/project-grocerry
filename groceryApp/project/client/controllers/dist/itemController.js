@@ -165,7 +165,7 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
-            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n  \n        " + (isAdmin
+            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "$</h1> \n  \n        " + (isAdmin
                 ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>"
                 : "") + "\n    \n      ";
             renderDiv.classList.add("renderDiv");

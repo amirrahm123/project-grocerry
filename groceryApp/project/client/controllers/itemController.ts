@@ -114,7 +114,7 @@ async function renderItem(itemId, name, src, type, price) {
   <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">  
   <h1>${name}</h1> 
         <h1>Type: ${type}</h1> 
-        <h1>Price: ${price}</h1> 
+        <h1>Price: ${price}$</h1> 
   
         ${
           isAdmin
