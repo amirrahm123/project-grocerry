@@ -287,4 +287,14 @@ nav a:hover {
       font-size: 30px;
     }
   }
+
+  .contactInfo {
+    display: flex;
+    flex-direction: row;
+    ion-icon {
+      margin-top: 4vh;
+      margin-left: 1vh;
+      margin-right: 1vh;
+    }
+  }
 }

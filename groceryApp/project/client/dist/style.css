@@ -292,3 +292,12 @@ nav a:hover {
 .footer__Container .footerLeft .smLogos {
   font-size: 30px;
 }
+.footer__Container .contactInfo {
+  display: flex;
+  flex-direction: row;
+}
+.footer__Container .contactInfo ion-icon {
+  margin-top: 4vh;
+  margin-left: 1vh;
+  margin-right: 1vh;
+}
