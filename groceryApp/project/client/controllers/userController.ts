@@ -96,3 +96,16 @@ async function logOut() {
   localStorage.removeItem("isAdmin");
   location.reload();
 }
+
+function adminNavbar() {
+  try {
+    const isAdmin = localStorage.getItem("isAdmin");
+
+    if (isAdmin === "true") {
+      const adminNav = document.getElementById("navAdmin") as HTMLAnchorElement;
+      adminNav.style.display = "block";
+    }
+  } catch (error) {
+    console.error("Error checking admin status:", error);
+  }
+}

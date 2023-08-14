@@ -1,7 +1,32 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@500&family=Open+Sans&family=Poppins:wght@100;300;400;500;600&family=Roboto:wght@300&display=swap");
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #f9f9f9;
+}
+
+* {
+  font-family: "Poppins", sans-serif;
+}
+
 .navBar__Container {
+  width: 100%;
   display: flex;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
+  height: 10vh;
+  box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2); /* Adjust shadow values */
+  background-color: white; /* Add a background color */
+  position: relative; /* Ensure proper stacking context */
+  z-index: 2; /* Higher z-index to ensure the navbar is on top */
+}
+
+.logo {
+  margin-top: 20px;
+  font-size: 40px;
+  margin-left: 1vw;
+  margin-right: 25vw;
 }
 
 nav ul {
@@ -21,6 +46,39 @@ nav a {
   font-weight: bold;
 }
 
+nav a:hover {
+  color: #848383;
+}
+
+.header__Container {
+  position: relative;
+  img {
+    width: 100%;
+    height: 65vh;
+    object-fit: cover;
+  }
+  h2 {
+    position: absolute;
+    top: 20%; /* Adjust as needed to vertically center the text */
+    left: 60%;
+    transform: translate(
+      -50%,
+      -50%
+    ); /* Center both horizontally and vertically */
+    z-index: 1; /* Place the text above the image */
+  }
+  h4 {
+    position: absolute;
+    top: 40%; /* Adjust as needed to vertically center the text */
+    left: 61.7%;
+    transform: translate(
+      -50%,
+      -50%
+    ); /* Center both horizontally and vertically */
+    z-index: 1; /* Place the text above the image */
+  }
+}
+
 .modal__wrapper {
   display: none;
   position: fixed;
@@ -30,7 +88,8 @@ nav a {
   height: 100%;
   background-color: rgba(0, 0, 0, 0.5);
   align-items: center;
-  justify-content: center;
+  justify-content: flex-end;
+  z-index: 2;
 }
 
 .modal__content {
@@ -40,6 +99,8 @@ nav a {
   padding: 20px;
   width: 400px;
   text-align: center;
+  margin-right: 60vw;
+  margin-bottom: 30vh;
 }
 
 .modal__content h2 {
@@ -55,6 +116,7 @@ nav a {
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #e4e3e3;
 }
 
 .modal__content button {
@@ -74,12 +136,13 @@ nav a {
 .register__Container {
   background-color: #f9f9f9;
   border-radius: 10px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
   padding: 20px;
-  width: 300px;
-  margin: 0 auto;
+  width: 400px;
   text-align: center;
-  margin-top: 5vh;
+  margin-right: 60vw;
+  margin-bottom: 18vh;
+  z-index: 2;
 }
 
 .register__Container h2 {
@@ -91,9 +154,11 @@ nav a {
 .register__Container input[type="password"] {
   width: 100%;
   padding: 10px;
-  margin: 5px 0;
+  margin-left: -10px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+  background-color: #e4e3e3;
 }
 
 .register__Container button {
@@ -137,12 +202,17 @@ nav a {
   width: 200px; /* Adjust the width as needed */
   height: 250px; /* Adjust the height as needed */
   text-align: center;
-  background-color: #f9f9f9;
+  background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  transition: border-color 0.3s ease;
+  border: 2px solid #ddd;
+}
+.renderDiv:hover {
+  border-color: #d0c4d4; /* Change border color on hover */
 }
 
 .renderDiv h1 {
@@ -160,4 +230,61 @@ nav a {
   max-width: 100px;
   max-height: 100px;
   margin-top: 10px;
+}
+
+.cart__Icon {
+  cursor: pointer;
+}
+
+#navAdmin {
+  display: none;
+}
+
+.userMsg__Conatiner {
+  display: flex;
+  justify-content: center;
+}
+
+.search__Container {
+  display: flex;
+  justify-content: flex-start;
+  margin-left: 3vw;
+
+  #searchButton {
+    cursor: pointer;
+    font-size: 25px;
+    margin-right: 1vw;
+    margin-left: 1vw;
+  }
+}
+
+.footer__Container {
+  margin-top: 20px;
+  display: flex;
+  justify-self: start;
+  background-color: #fff;
+  height: 60vh;
+
+  .footerLeft {
+    width: 30vw;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .footerLogo {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      ion-icon {
+        margin-left: 10px;
+        font-size: 40px;
+      }
+    }
+    h3 {
+      margin-left: 5vw;
+    }
+
+    .smLogos {
+      font-size: 30px;
+    }
+  }
 }

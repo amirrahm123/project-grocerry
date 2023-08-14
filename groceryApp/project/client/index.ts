@@ -1,7 +1,7 @@
 document.addEventListener("DOMContentLoaded", () => {
-  getAndRenderItems();
   navInit();
   userMsg();
+  adminNavbar();
 
   const modalWrapper = document.querySelector(
     "#login__Modal"

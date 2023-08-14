@@ -10,14 +10,47 @@ const handleGetItems = async () => {
     console.error("Error fetching users:", error);
   }
 };
+document.addEventListener("DOMContentLoaded", () => {
+  const searchButton = document.getElementById(
+    "searchButton"
+  ) as HTMLButtonElement;
+  const searchInput = document.getElementById(
+    "searchInput"
+  ) as HTMLInputElement;
+  const filterType = document.getElementById("filterType") as HTMLSelectElement;
 
-const getAndRenderItems = async () => {
-  //After getting items call renderItem()
-  const items = await handleGetItems();
-  items.map((item) =>
-    renderItem(item._id, item.name, item.src, item.type, item.price)
-  );
-};
+  searchButton.addEventListener("click", () => {
+    const searchTerm = searchInput.value;
+    const selectedType = filterType.value;
+    const itemContainer = document.getElementById(
+      "item__Container"
+    ) as HTMLDivElement;
+    itemContainer.innerHTML = "";
+    getAndRenderItems(searchTerm, selectedType);
+  });
+
+  getAndRenderItems("", "all");
+});
+
+async function getAndRenderItems(searchTerm, selectedType) {
+  try {
+    const items = await handleGetItems();
+
+    const filteredItems = items.filter((item) => {
+      const nameMatch = item.name
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase());
+      const typeMatch = selectedType === "all" || item.type === selectedType;
+      return nameMatch && typeMatch;
+    });
+
+    filteredItems.forEach((item) =>
+      renderItem(item._id, item.name, item.src, item.type, item.price)
+    );
+  } catch (error) {
+    console.error("Error fetching and rendering items:", error);
+  }
+}
 
 async function handleAddItem() {
   //Request to add Item to DB
@@ -77,17 +110,18 @@ async function renderItem(itemId, name, src, type, price) {
   renderDiv.id = itemId;
   const cartImg = "./shopping-cart-empty-side-view.png";
   const isAdmin = localStorage.getItem("isAdmin") === "true";
-  renderDiv.innerHTML = `<img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image"> ;
+  renderDiv.innerHTML = `<img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
+  <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">  
   <h1>${name}</h1> 
         <h1>Type: ${type}</h1> 
         <h1>Price: ${price}</h1> 
-        <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
+  
         ${
           isAdmin
             ? `<button onclick="handleDeleteItem('${itemId}')">Delete</button>`
             : ""
         }
-        ${isAdmin ? `<button onclick="showUpdateModal()">Update</button>` : ""}
+    
       `;
 
   renderDiv.classList.add("renderDiv");

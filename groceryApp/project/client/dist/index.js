@@ -35,9 +35,9 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 document.addEventListener("DOMContentLoaded", function () {
-    getAndRenderItems();
     navInit();
     userMsg();
+    adminNavbar();
     var modalWrapper = document.querySelector("#login__Modal");
     modalWrapper.addEventListener("click", function (event) {
         if (event.target === modalWrapper) {

@@ -58,23 +58,52 @@ var handleGetItems = function () { return __awaiter(_this, void 0, void 0, funct
         }
     });
 }); };
-var getAndRenderItems = function () { return __awaiter(_this, void 0, void 0, function () {
-    var items;
-    return __generator(this, function (_a) {
-        switch (_a.label) {
-            case 0: return [4 /*yield*/, handleGetItems()];
-            case 1:
-                items = _a.sent();
-                items.map(function (item) {
-                    return renderItem(item._id, item.name, item.src, item.type, item.price);
-                });
-                return [2 /*return*/];
-        }
+document.addEventListener("DOMContentLoaded", function () {
+    var searchButton = document.getElementById("searchButton");
+    var searchInput = document.getElementById("searchInput");
+    var filterType = document.getElementById("filterType");
+    searchButton.addEventListener("click", function () {
+        var searchTerm = searchInput.value;
+        var selectedType = filterType.value;
+        var itemContainer = document.getElementById("item__Container");
+        itemContainer.innerHTML = "";
+        getAndRenderItems(searchTerm, selectedType);
     });
-}); };
+    getAndRenderItems("", "all");
+});
+function getAndRenderItems(searchTerm, selectedType) {
+    return __awaiter(this, void 0, void 0, function () {
+        var items, filteredItems, error_2;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    _a.trys.push([0, 2, , 3]);
+                    return [4 /*yield*/, handleGetItems()];
+                case 1:
+                    items = _a.sent();
+                    filteredItems = items.filter(function (item) {
+                        var nameMatch = item.name
+                            .toLowerCase()
+                            .includes(searchTerm.toLowerCase());
+                        var typeMatch = selectedType === "all" || item.type === selectedType;
+                        return nameMatch && typeMatch;
+                    });
+                    filteredItems.forEach(function (item) {
+                        return renderItem(item._id, item.name, item.src, item.type, item.price);
+                    });
+                    return [3 /*break*/, 3];
+                case 2:
+                    error_2 = _a.sent();
+                    console.error("Error fetching and rendering items:", error_2);
+                    return [3 /*break*/, 3];
+                case 3: return [2 /*return*/];
+            }
+        });
+    });
+}
 function handleAddItem() {
     return __awaiter(this, void 0, void 0, function () {
-        var nameInput, srcInput, typeSelect, priceInput, newItem, res, resJson, error_2, errorMessage;
+        var nameInput, srcInput, typeSelect, priceInput, newItem, res, resJson, error_3, errorMessage;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -113,9 +142,9 @@ function handleAddItem() {
                     _a.label = 5;
                 case 5: return [3 /*break*/, 8];
                 case 6:
-                    error_2 = _a.sent();
-                    console.error("Error adding Item:", error_2);
-                    return [4 /*yield*/, error_2.json()];
+                    error_3 = _a.sent();
+                    console.error("Error adding Item:", error_3);
+                    return [4 /*yield*/, error_3.json()];
                 case 7:
                     errorMessage = _a.sent();
                     console.log(errorMessage);
@@ -136,9 +165,9 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
-            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\"> ;\n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n        <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n        " + (isAdmin
+            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "</h1> \n  \n        " + (isAdmin
                 ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>"
-                : "") + "\n        " + (isAdmin ? "<button onclick=\"showUpdateModal()\">Update</button>" : "") + "\n      ";
+                : "") + "\n    \n      ";
             renderDiv.classList.add("renderDiv");
             itemContainer.appendChild(renderDiv);
             return [2 /*return*/];
@@ -146,7 +175,7 @@ function renderItem(itemId, name, src, type, price) {
     });
 }
 var handleDeleteItem = function (itemId) { return __awaiter(_this, void 0, void 0, function () {
-    var res, error_3;
+    var res, error_4;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -165,8 +194,8 @@ var handleDeleteItem = function (itemId) { return __awaiter(_this, void 0, void 
                 }
                 return [3 /*break*/, 3];
             case 2:
-                error_3 = _a.sent();
-                console.error("Error deleting item:", error_3);
+                error_4 = _a.sent();
+                console.error("Error deleting item:", error_4);
                 return [3 /*break*/, 3];
             case 3: return [2 /*return*/];
         }
@@ -174,7 +203,7 @@ var handleDeleteItem = function (itemId) { return __awaiter(_this, void 0, void 
 }); };
 function addToCart(itemId) {
     return __awaiter(this, void 0, void 0, function () {
-        var userId, res, error_4, errorMessage;
+        var userId, res, error_5, errorMessage;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -198,8 +227,8 @@ function addToCart(itemId) {
                     }
                     return [3 /*break*/, 5];
                 case 3:
-                    error_4 = _a.sent();
-                    return [4 /*yield*/, error_4.json()];
+                    error_5 = _a.sent();
+                    return [4 /*yield*/, error_5.json()];
                 case 4:
                     errorMessage = _a.sent();
                     console.log(errorMessage);
@@ -210,7 +239,7 @@ function addToCart(itemId) {
     });
 }
 var renderCart = function () { return __awaiter(_this, void 0, void 0, function () {
-    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_5;
+    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -246,8 +275,8 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
                 });
                 return [3 /*break*/, 6];
             case 5:
-                error_5 = _a.sent();
-                console.error(error_5);
+                error_6 = _a.sent();
+                console.error(error_6);
                 return [3 /*break*/, 6];
             case 6: return [2 /*return*/];
         }

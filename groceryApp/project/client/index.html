@@ -12,22 +12,23 @@
   </head>
   <body>
     <div class="navBar__Container">
+      <div class="logo">
+        <ion-icon name="storefront-outline"></ion-icon>
+      </div>
+
       <nav>
         <ul>
           <li>
             <a href="#login" id="navLogin" onclick="showModal()">Login</a>
           </li>
-
           <li>
             <a href="#register" id="navRegister" onclick="showRegisterModal()"
               >Register</a
             >
           </li>
-
           <li>
             <a href="#login" id="navLogout" onclick="logOut()">Logout</a>
           </li>
-
           <li><a href="#home">Home</a></li>
           <li><a href="./cart.html">Cart</a></li>
           <li><a href="#checkout">Checkout</a></li>
@@ -37,7 +38,30 @@
       </nav>
     </div>
 
+    <div class="header__Container">
+      <img src="./sweet-fruits-palm-leaf.jpg" alt="" />
+      <h2>Fresh And Organic Products For You!</h2>
+      <h4>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Laborum dolore,
+        impedit labore libero sequi itaque adipisci dicta repellat blanditiis
+        beatae officia repudiandae vitae provident inventore! Sapiente,
+        voluptate vitae. Rerum, vel!
+      </h4>
+    </div>
+
     <div class="userMsg__Conatiner"></div>
+    <div class="search__Container">
+      <input type="search" id="searchInput" placeholder="Search by item name" />
+      <select id="filterType">
+        <option value="all">All Types</option>
+        <option value="vegetables">Vegetables</option>
+        <option value="fruits">Fruits</option>
+        <option value="dairy">Dairy</option>
+        <option value="meat">Meat</option>
+        <option value="snacks">Snacks</option>
+      </select>
+      <ion-icon name="search-outline" id="searchButton"></ion-icon>
+    </div>
 
     <div class="modal__wrapper" id="register__Modal">
       <div class="register__Container">
@@ -77,11 +101,48 @@
           id="loginPassword__Input"
           placeholder="Password"
         />
+
         <button id="loginBtn" onclick="handleLoginAndCloseModal()">
           Login
         </button>
       </div>
     </div>
     <div id="item__Container"></div>
+
+    <div class="footer__Container">
+      <div class="footerLeft">
+        <div class="footerLogo">
+          <h1>GroceryStore</h1>
+          <ion-icon name="storefront-outline"></ion-icon>
+        </div>
+        <h3>
+          Feel Free To Follow Us On Our Social Media Handlers All The Links Are
+          Given Below.
+        </h3>
+        <div class="smLogos">
+          <ion-icon name="logo-facebook"></ion-icon>
+          <ion-icon name="logo-instagram"></ion-icon>
+          <ion-icon name="logo-snapchat"></ion-icon>
+          <ion-icon name="logo-twitter"></ion-icon>
+        </div>
+      </div>
+
+      <div class="footerLeftMiddle"></div>
+      <div class="footerLogo">
+        <h1>Contact Info</h1>
+      </div>
+
+      <div class="footerRightMiddle"></div>
+
+      <div class="footerRight"></div>
+    </div>
   </body>
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+  ></script>
 </html>

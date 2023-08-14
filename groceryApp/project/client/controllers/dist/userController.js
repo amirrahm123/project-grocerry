@@ -159,3 +159,15 @@ function logOut() {
         });
     });
 }
+function adminNavbar() {
+    try {
+        var isAdmin = localStorage.getItem("isAdmin");
+        if (isAdmin === "true") {
+            var adminNav = document.getElementById("navAdmin");
+            adminNav.style.display = "block";
+        }
+    }
+    catch (error) {
+        console.error("Error checking admin status:", error);
+    }
+}
