@@ -43,7 +43,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.addToCart = exports.deleteItem = exports.addItem = exports.getItem = void 0;
+exports.addToCart = exports.updateItem = exports.deleteItem = exports.addItem = exports.getItem = void 0;
 var userModel_1 = require("../user/userModel");
 var itemModel_1 = require("./itemModel");
 exports.getItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -103,6 +103,26 @@ exports.deleteItem = function (req, res) { return __awaiter(void 0, void 0, void
                 return [3 /*break*/, 3];
             case 2:
                 error_2 = _a.sent();
+                return [2 /*return*/, res.send("Internal Server Error").status(500)];
+            case 3: return [2 /*return*/];
+        }
+    });
+}); };
+exports.updateItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var itemId, _a, name, src, price, type, error_3;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 2, , 3]);
+                itemId = req.params.itemId;
+                _a = req.body, name = _a.name, src = _a.src, price = _a.price, type = _a.type;
+                return [4 /*yield*/, itemModel_1["default"].updateOne({ _id: itemId }, { name: name, src: src, price: price, type: type })];
+            case 1:
+                _b.sent();
+                res.send("Item edited Successfully").status(200);
+                return [3 /*break*/, 3];
+            case 2:
+                error_3 = _b.sent();
                 return [2 /*return*/, res.send("Internal Server Error").status(500)];
             case 3: return [2 /*return*/];
         }

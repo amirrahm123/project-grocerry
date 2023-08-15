@@ -63,8 +63,8 @@ document.addEventListener("DOMContentLoaded", function () {
     var searchInput = document.getElementById("searchInput");
     var filterType = document.getElementById("filterType");
     searchButton.addEventListener("click", function () {
-        var searchTerm = searchInput.value;
-        var selectedType = filterType.value;
+        var searchTerm = searchInput === null || searchInput === void 0 ? void 0 : searchInput.value;
+        var selectedType = filterType === null || filterType === void 0 ? void 0 : filterType.value;
         var itemContainer = document.getElementById("item__Container");
         itemContainer.innerHTML = "";
         getAndRenderItems(searchTerm, selectedType);
@@ -82,10 +82,18 @@ function getAndRenderItems(searchTerm, selectedType) {
                 case 1:
                     items = _a.sent();
                     filteredItems = items.filter(function (item) {
-                        var nameMatch = item.name
-                            .toLowerCase()
-                            .includes(searchTerm.toLowerCase());
-                        var typeMatch = selectedType === "all" || item.type === selectedType;
+                        var nameMatch;
+                        var typeMatch;
+                        if (searchTerm) {
+                            nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+                        }
+                        else
+                            nameMatch = true;
+                        if (selectedType) {
+                            typeMatch = selectedType === "all" || item.type === selectedType;
+                        }
+                        else
+                            typeMatch = true;
                         return nameMatch && typeMatch;
                     });
                     filteredItems.forEach(function (item) {
@@ -166,7 +174,7 @@ function renderItem(itemId, name, src, type, price) {
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
             renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "$</h1> \n  \n        " + (isAdmin
-                ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>"
+                ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>\n              <button onclick=\"showUpdateModal('" + itemId + "')\">Update</button>\n            "
                 : "") + "\n    \n      ";
             renderDiv.classList.add("renderDiv");
             itemContainer.appendChild(renderDiv);
@@ -282,3 +290,55 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
         }
     });
 }); };
+var handleUpdateItem = function (itemId) { return __awaiter(_this, void 0, void 0, function () {
+    var name, src, type, price, items, res, error_7;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                name = document.querySelector("#updateName__Input");
+                src = document.querySelector("#updateSrc__Input");
+                type = document.querySelector("#updateType__Input");
+                price = document.querySelector("#updatePrice__Input");
+                items = {
+                    name: name.value,
+                    src: src.value,
+                    type: type.value,
+                    price: parseFloat(price.value)
+                };
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 4]);
+                return [4 /*yield*/, fetch("http://localhost:5500/item/update-item/" + itemId, {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify(items)
+                    })];
+            case 2:
+                res = _a.sent();
+                if (res.ok) {
+                    console.log("Item updated successfully!");
+                    location.reload();
+                }
+                else {
+                    console.log("Failed to update item.");
+                }
+                return [3 /*break*/, 4];
+            case 3:
+                error_7 = _a.sent();
+                console.error("Error updating item:", error_7);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+function showUpdateModal(itemId) {
+    var modalWrapper = document.querySelector(".updateModal__Wrapper");
+    modalWrapper.style.display = "flex";
+    var submitUpdateBtn = document.querySelector("#submitUpdateBtn");
+    submitUpdateBtn.onclick = function () {
+        handleUpdateItem(itemId);
+        modalWrapper.style.display = "none";
+    };
+}

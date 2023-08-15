@@ -20,8 +20,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const filterType = document.getElementById("filterType") as HTMLSelectElement;
 
   searchButton.addEventListener("click", () => {
-    const searchTerm = searchInput.value;
-    const selectedType = filterType.value;
+    const searchTerm = searchInput?.value;
+    const selectedType = filterType?.value;
     const itemContainer = document.getElementById(
       "item__Container"
     ) as HTMLDivElement;
@@ -35,12 +35,15 @@ document.addEventListener("DOMContentLoaded", () => {
 async function getAndRenderItems(searchTerm, selectedType) {
   try {
     const items = await handleGetItems();
-
     const filteredItems = items.filter((item) => {
-      const nameMatch = item.name
-        .toLowerCase()
-        .includes(searchTerm.toLowerCase());
-      const typeMatch = selectedType === "all" || item.type === selectedType;
+      let nameMatch;
+      let typeMatch;
+      if (searchTerm) {
+        nameMatch = item.name.toLowerCase().includes(searchTerm.toLowerCase());
+      } else nameMatch = true;
+      if (selectedType) {
+        typeMatch = selectedType === "all" || item.type === selectedType;
+      } else typeMatch = true;
       return nameMatch && typeMatch;
     });
 
@@ -118,7 +121,9 @@ async function renderItem(itemId, name, src, type, price) {
   
         ${
           isAdmin
-            ? `<button onclick="handleDeleteItem('${itemId}')">Delete</button>`
+            ? `<button onclick="handleDeleteItem('${itemId}')">Delete</button>
+              <button onclick="showUpdateModal('${itemId}')">Update</button>
+            `
             : ""
         }
     
@@ -210,3 +215,56 @@ const renderCart = async () => {
     console.error(error);
   }
 };
+
+const handleUpdateItem = async (itemId) => {
+  const name = document.querySelector("#updateName__Input") as HTMLInputElement;
+  const src = document.querySelector("#updateSrc__Input") as HTMLInputElement;
+  const type = document.querySelector(
+    "#updateType__Input"
+  ) as HTMLSelectElement;
+  const price = document.querySelector(
+    "#updatePrice__Input"
+  ) as HTMLInputElement;
+  const items = {
+    name: name.value,
+    src: src.value,
+    type: type.value,
+    price: parseFloat(price.value),
+  };
+  try {
+    const res = await fetch(
+      `http://localhost:5500/item/update-item/${itemId}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(items),
+      }
+    );
+
+    if (res.ok) {
+      console.log("Item updated successfully!");
+
+      location.reload();
+    } else {
+      console.log("Failed to update item.");
+    }
+  } catch (error) {
+    console.error("Error updating item:", error);
+  }
+};
+
+function showUpdateModal(itemId) {
+  const modalWrapper = document.querySelector(
+    ".updateModal__Wrapper"
+  ) as HTMLDivElement;
+  modalWrapper.style.display = "flex";
+  const submitUpdateBtn = document.querySelector(
+    "#submitUpdateBtn"
+  ) as HTMLButtonElement;
+  submitUpdateBtn.onclick = () => {
+    handleUpdateItem(itemId);
+    modalWrapper.style.display = "none";
+  };
+}

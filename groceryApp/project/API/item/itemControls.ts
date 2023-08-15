@@ -38,6 +38,16 @@ export const deleteItem = async (req: any, res: any) => {
     return res.send("Internal Server Error").status(500);
   }
 };
+export const updateItem = async (req: any, res: any) => {
+  try {
+    const { itemId } = req.params;
+    const { name, src, price, type } = req.body;
+    await Item.updateOne({ _id: itemId }, { name, src, price, type });
+    res.send("Item edited Successfully").status(200);
+  } catch (error) {
+    return res.send("Internal Server Error").status(500);
+  }
+};
 
 export const addToCart = async (req: any, res: any) => {
   try {

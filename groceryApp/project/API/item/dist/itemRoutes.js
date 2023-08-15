@@ -7,4 +7,5 @@ router.get("/get-item", itemControls_1.getItem);
 router.post("/add-item", itemControls_1.addItem);
 router.put("/addToCart", itemControls_1.addToCart);
 router["delete"]("/delete-item/:itemId", itemControls_1.deleteItem);
+router.put("/update-item/:itemId", itemControls_1.updateItem);
 exports["default"] = router;
