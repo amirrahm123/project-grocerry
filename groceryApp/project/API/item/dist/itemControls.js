@@ -43,7 +43,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.addToCart = exports.updateItem = exports.deleteItem = exports.addItem = exports.getItem = void 0;
+exports.handleRemoveFromCart = exports.addToCart = exports.updateItem = exports.deleteItem = exports.addItem = exports.getItem = void 0;
 var userModel_1 = require("../user/userModel");
 var itemModel_1 = require("./itemModel");
 exports.getItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -152,6 +152,33 @@ exports.addToCart = function (req, res) { return __awaiter(void 0, void 0, void 
                 err_2 = _b.sent();
                 res.send("Internal server error").status(500);
                 console.log(err_2);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.handleRemoveFromCart = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, itemId_1, userId, selectedUser, updatedcart, err_3;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 3, , 4]);
+                _a = req.body, itemId_1 = _a.itemId, userId = _a.userId;
+                return [4 /*yield*/, userModel_1["default"].findById(userId)];
+            case 1:
+                selectedUser = _b.sent();
+                if (!selectedUser)
+                    return [2 /*return*/, res.send("permission denied").status(403)];
+                updatedcart = selectedUser.cart.filter(function (cartItemId) { return cartItemId !== itemId_1; });
+                return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: updatedcart })];
+            case 2:
+                _b.sent();
+                res.send("Item removed from cart successfully").status(200);
+                return [3 /*break*/, 4];
+            case 3:
+                err_3 = _b.sent();
+                res.send("Internal server error").status(500);
+                console.log(err_3);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

@@ -113,8 +113,11 @@ async function renderItem(itemId, name, src, type, price) {
   renderDiv.id = itemId;
   const cartImg = "./shopping-cart-empty-side-view.png";
   const isAdmin = localStorage.getItem("isAdmin") === "true";
-  renderDiv.innerHTML = `<img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
-  <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">  
+  renderDiv.innerHTML = `  
+  <img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
+  <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">
+  
+  
   <h1>${name}</h1> 
         <h1>Type: ${type}</h1> 
         <h1>Price: ${price}$</h1> 
@@ -126,8 +129,8 @@ async function renderItem(itemId, name, src, type, price) {
             `
             : ""
         }
-    
-      `;
+  
+        `;
 
   renderDiv.classList.add("renderDiv");
   itemContainer.appendChild(renderDiv);
@@ -267,4 +270,28 @@ function showUpdateModal(itemId) {
     handleUpdateItem(itemId);
     modalWrapper.style.display = "none";
   };
+}
+async function handleRemoveFromCart(itemId: string) {
+  const userId = localStorage.getItem("id");
+  if (!userId) return alert("Please login first.");
+
+  try {
+    const res = await fetch("http://localhost:5500/item/removeFromCart", {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ itemId, userId }),
+    });
+
+    if (res.ok) {
+      alert("Item removed successfully from the cart!");
+      location.reload();
+    } else {
+      console.log("Failed to remove item from cart.");
+    }
+  } catch (error) {
+    const errorMessage = await error.json();
+    console.log(errorMessage);
+  }
 }

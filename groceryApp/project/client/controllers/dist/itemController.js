@@ -173,9 +173,9 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
-            renderDiv.innerHTML = "<img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "$</h1> \n  \n        " + (isAdmin
+            renderDiv.innerHTML = "  \n  <img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">\n  \n  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "$</h1> \n  \n        " + (isAdmin
                 ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>\n              <button onclick=\"showUpdateModal('" + itemId + "')\">Update</button>\n            "
-                : "") + "\n    \n      ";
+                : "") + "\n  \n        ";
             renderDiv.classList.add("renderDiv");
             itemContainer.appendChild(renderDiv);
             return [2 /*return*/];
@@ -341,4 +341,45 @@ function showUpdateModal(itemId) {
         handleUpdateItem(itemId);
         modalWrapper.style.display = "none";
     };
+}
+function handleRemoveFromCart(itemId) {
+    return __awaiter(this, void 0, void 0, function () {
+        var userId, res, error_8, errorMessage;
+        return __generator(this, function (_a) {
+            switch (_a.label) {
+                case 0:
+                    userId = localStorage.getItem("id");
+                    if (!userId)
+                        return [2 /*return*/, alert("Please login first.")];
+                    _a.label = 1;
+                case 1:
+                    _a.trys.push([1, 3, , 5]);
+                    return [4 /*yield*/, fetch("http://localhost:5500/item/removeFromCart", {
+                            method: "DELETE",
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ itemId: itemId, userId: userId })
+                        })];
+                case 2:
+                    res = _a.sent();
+                    if (res.ok) {
+                        alert("Item removed successfully from the cart!");
+                        location.reload();
+                    }
+                    else {
+                        console.log("Failed to remove item from cart.");
+                    }
+                    return [3 /*break*/, 5];
+                case 3:
+                    error_8 = _a.sent();
+                    return [4 /*yield*/, error_8.json()];
+                case 4:
+                    errorMessage = _a.sent();
+                    console.log(errorMessage);
+                    return [3 /*break*/, 5];
+                case 5: return [2 /*return*/];
+            }
+        });
+    });
 }

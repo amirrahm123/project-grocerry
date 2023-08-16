@@ -66,3 +66,19 @@ export const addToCart = async (req: any, res: any) => {
     console.log(err);
   }
 };
+
+export const handleRemoveFromCart = async (req: any, res: any) => {
+  try{
+    const { itemId, userId } = req.body;
+    const selectedUser = await UserModel.findById(userId);
+    if (!selectedUser) return res.send("permission denied").status(403);
+
+    const updatedcart = selectedUser.cart.filter((cartItemId: string) => cartItemId !== itemId);
+
+    await UserModel.updateOne({ _id: userId }, { cart: updatedcart });
+    res.send("Item removed from cart successfully").status(200);
+  } catch (err) {
+    res.send("Internal server error").status(500);
+    console.log(err);
+  }
+}

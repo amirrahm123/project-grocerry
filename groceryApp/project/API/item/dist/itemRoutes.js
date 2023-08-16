@@ -8,4 +8,5 @@ router.post("/add-item", itemControls_1.addItem);
 router.put("/addToCart", itemControls_1.addToCart);
 router["delete"]("/delete-item/:itemId", itemControls_1.deleteItem);
 router.put("/update-item/:itemId", itemControls_1.updateItem);
+router.put("/removeFromCart", itemControls_1.handleRemoveFromCart);
 exports["default"] = router;
