@@ -113,6 +113,7 @@ async function renderItem(itemId, name, src, type, price) {
   renderDiv.id = itemId;
   const cartImg = "./shopping-cart-empty-side-view.png";
   const isAdmin = localStorage.getItem("isAdmin") === "true";
+<<<<<<< Updated upstream
   renderDiv.innerHTML = `  
   <img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
   <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">
@@ -121,6 +122,18 @@ async function renderItem(itemId, name, src, type, price) {
   <h1>${name}</h1> 
         <h1>Type: ${type}</h1> 
         <h1>Price: ${price}$</h1> 
+=======
+  renderDiv.innerHTML = `
+  <img class="item__Image "src="${src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;">  
+  <h1 class="name">${name}</h1> 
+        <h1 class="type">Type: ${type}</h1> 
+        <div class ="bottom__RenderDiv">
+        <h1> $${price}</h1> 
+        
+        <img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
+        
+        </div>
+>>>>>>> Stashed changes
   
         ${
           isAdmin

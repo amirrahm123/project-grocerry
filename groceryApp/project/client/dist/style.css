@@ -198,7 +198,6 @@ nav a:hover {
   margin-top: 20px;
 }
 
-/* Style for the rendered items */
 .renderDiv {
   border: 1px solid #ddd;
   padding: 10px;
@@ -215,6 +214,15 @@ nav a:hover {
   align-items: center;
   transition: border-color 0.3s ease;
   border: 2px solid #ddd;
+  border-radius: 10px;
+}
+.renderDiv .name {
+  position: absolute;
+  margin-top: 7.5vh;
+}
+.renderDiv .type {
+  position: absolute;
+  margin-top: 19vh;
 }
 
 .renderDiv:hover {
@@ -222,25 +230,33 @@ nav a:hover {
   /* Change border color on hover */
 }
 
+.bottom__RenderDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  justify-content: space-between;
+  margin-top: 35vh;
+  margin-right: 15vw;
+}
+
 .renderDiv h1 {
   font-size: 1.2rem;
-  margin-bottom: 5px;
 }
 
 .cart__Icon {
-  margin-right: -12vw;
+  margin-right: -15vw;
   max-width: 27.5px;
   max-height: 27.5px;
+  cursor: pointer;
 }
 
 .item__Image {
+  position: absolute;
   max-width: 100px;
   max-height: 100px;
-  margin-top: 10px;
-}
-
-.cart__Icon {
-  cursor: pointer;
+  margin-bottom: 20vh;
+  border-radius: 3px;
 }
 
 #navAdmin {
