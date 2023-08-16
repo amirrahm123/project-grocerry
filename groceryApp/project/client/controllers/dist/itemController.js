@@ -173,11 +173,7 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
-<<<<<<< Updated upstream
             renderDiv.innerHTML = "  \n  <img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">\n  \n  \n  <h1>" + name + "</h1> \n        <h1>Type: " + type + "</h1> \n        <h1>Price: " + price + "$</h1> \n  \n        " + (isAdmin
-=======
-            renderDiv.innerHTML = "\n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">  \n  <h1 class=\"name\">" + name + "</h1> \n        <h1 class=\"type\">Type: " + type + "</h1> \n        <div class =\"bottom__RenderDiv\">\n        <h1> $" + price + "</h1> \n        \n        <img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n        \n        </div>\n  \n        " + (isAdmin
->>>>>>> Stashed changes
                 ? "<button onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>\n              <button onclick=\"showUpdateModal('" + itemId + "')\">Update</button>\n            "
                 : "") + "\n  \n        ";
             renderDiv.classList.add("renderDiv");
