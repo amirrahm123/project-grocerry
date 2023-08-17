@@ -213,9 +213,9 @@ const renderCart = async () => {
             <img class="item__Image "src="${item.src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
             <h1 class="name">${item.name}</h1> 
             <h1 class="type">Type: ${item.type}</h1> 
-            <h1>Price: ${item.price}</h1> 
+            <h1 class="Price">Price: ${item.price}</h1> 
             
-            <h1>Quantity: ${quantity}</h1> 
+            <h1 class="Quantity">Quantity: ${quantity}</h1> 
             <button onclick="handleDeleteCartItem('${item._id}')">x</button>
             <input id="${item._id}" type="number" />
             <button onclick="handleCartItemQuantity('${item._id}')">update</button>

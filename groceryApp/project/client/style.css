@@ -189,12 +189,11 @@ nav a:hover {
   margin-top: 20px;
 }
 
-/* Style for the rendered items */
 .renderDiv {
   border: 1px solid #ddd;
   padding: 10px;
-  width: 200px; /* Adjust the width as needed */
-  height: 250px; /* Adjust the height as needed */
+  width: 250px; /* Adjust the width as needed */
+  height: 340px; /* Adjust the height as needed */
   text-align: center;
   background-color: #fff;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
@@ -204,31 +203,61 @@ nav a:hover {
   align-items: center;
   transition: border-color 0.3s ease;
   border: 2px solid #ddd;
+  border-radius: 10px;
+}
+.renderDiv .name {
+  position: absolute;
+  margin-top: 7.5vh;
+}
+.renderDiv .type {
+  position: absolute;
+  margin-top: 19vh;
 }
 
 .renderDiv:hover {
   border-color: #d0c4d4; /* Change border color on hover */
 }
 
+.bottom__RenderDiv {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  position: absolute;
+  justify-content: space-between;
+  margin-top: 35vh;
+  margin-right: 15vw;
+}
+
 .renderDiv h1 {
   font-size: 1.2rem;
-  margin-bottom: 5px;
 }
 
 .cart__Icon {
-  margin-right: -12vw;
+  margin-right: -15vw;
   max-width: 27.5px;
   max-height: 27.5px;
+  cursor: pointer;
 }
 
 .item__Image {
+  position: absolute;
   max-width: 100px;
   max-height: 100px;
-  margin-top: 10px;
+  margin-bottom: 20vh;
+  border-radius: 3px;
+  z-index: 1;
 }
 
-.cart__Icon {
-  cursor: pointer;
+.AdminDelete {
+  position: absolute;
+  margin-bottom: 35vh;
+  margin-left: 12vw;
+}
+
+.AdminUpdate {
+  position: absolute;
+  margin-bottom: 35vh;
+  margin-right: 10vw;
 }
 
 #navAdmin {
@@ -309,4 +338,17 @@ nav a:hover {
 }
 .footer__Container .footerRightMiddle {
   margin-left: 20px;
+}
+
+h1 {
+  position: absolute;
+  margin-bottom: -97px;
+}
+
+.Price {
+  margin-bottom: -101px;
+}
+
+.Quantity {
+  margin-bottom: -321px;
 }/*# sourceMappingURL=style.css.map */
