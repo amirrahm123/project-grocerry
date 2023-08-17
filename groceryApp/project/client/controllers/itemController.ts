@@ -203,12 +203,12 @@ const renderCart = async () => {
     //render to screen
     filteredItems?.map((item) => {
       const renderDiv = document.createElement("div");
-      renderDiv.id = item._id;
+      // renderDiv.id = item._id;
       const itemDetails = user.cart.filter(
-        (cartItem) => cartItem.id == item.id
-      );
-      console.log("quan", itemDetails);
+        (cartItem) => cartItem.id == item._id
+      )[0];
       const { quantity } = itemDetails;
+      addToTotalPrice(parseInt(item.price), quantity);
       renderDiv.innerHTML = `
             <img class="item__Image "src="${item.src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
             <h1 class="name">${item.name}</h1> 
@@ -216,7 +216,7 @@ const renderCart = async () => {
             <h1 class="Price">Price: ${item.price}</h1> 
             
             <h1 class="Quantity">Quantity: ${quantity}</h1> 
-            <button onclick="handleDeleteCartItem('${item._id}')">x</button>
+            <button onclick="handleDeleteCartItem('${item._id}')">Delete item from cart</button>
             <input id="${item._id}" type="number" />
             <button onclick="handleCartItemQuantity('${item._id}')">update</button>
             
@@ -335,4 +335,15 @@ const handleCartItemQuantity = async (itemId: string) => {
     const errorMessage = await error.json();
     console.log(errorMessage);
   }
+};
+
+const addToTotalPrice = (price, quantity) => {
+  const totalPriceText = document.querySelector(
+    ".totalPrice"
+  ) as HTMLHeadingElement;
+  let totalPrice = parseInt(
+    totalPriceText.innerText !== "" ? totalPriceText.innerText : "0"
+  );
+  totalPrice += price * quantity;
+  totalPriceText.innerText = totalPrice.toString();
 };

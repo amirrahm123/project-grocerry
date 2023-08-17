@@ -277,11 +277,11 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
                 //render to screen
                 filteredItems === null || filteredItems === void 0 ? void 0 : filteredItems.map(function (item) {
                     var renderDiv = document.createElement("div");
-                    renderDiv.id = item._id;
-                    var itemDetails = user_1.cart.filter(function (cartItem) { return cartItem.id == item.id; });
-                    console.log("quan", itemDetails);
+                    // renderDiv.id = item._id;
+                    var itemDetails = user_1.cart.filter(function (cartItem) { return cartItem.id == item._id; })[0];
                     var quantity = itemDetails.quantity;
-                    renderDiv.innerHTML = "\n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n            <h1 class=\"name\">" + item.name + "</h1> \n            <h1 class=\"type\">Type: " + item.type + "</h1> \n            <h1 class=\"Price\">Price: " + item.price + "</h1> \n            \n            <h1 class=\"Quantity\">Quantity: " + quantity + "</h1> \n            <button onclick=\"handleDeleteCartItem('" + item._id + "')\">x</button>\n            <input id=\"" + item._id + "\" type=\"number\" />\n            <button onclick=\"handleCartItemQuantity('" + item._id + "')\">update</button>\n            \n          ";
+                    addToTotalPrice(parseInt(item.price), quantity);
+                    renderDiv.innerHTML = "\n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n            <h1 class=\"name\">" + item.name + "</h1> \n            <h1 class=\"type\">Type: " + item.type + "</h1> \n            <h1 class=\"Price\">Price: " + item.price + "</h1> \n            \n            <h1 class=\"Quantity\">Quantity: " + quantity + "</h1> \n            <button onclick=\"handleDeleteCartItem('" + item._id + "')\">Delete item from cart</button>\n            <input id=\"" + item._id + "\" type=\"number\" />\n            <button onclick=\"handleCartItemQuantity('" + item._id + "')\">update</button>\n            \n          ";
                     renderDiv.classList.add("renderDiv");
                     itemContainer_1.appendChild(renderDiv);
                 });
@@ -430,3 +430,9 @@ var handleCartItemQuantity = function (itemId) { return __awaiter(_this, void 0,
         }
     });
 }); };
+var addToTotalPrice = function (price, quantity) {
+    var totalPriceText = document.querySelector(".totalPrice");
+    var totalPrice = parseInt(totalPriceText.innerText !== "" ? totalPriceText.innerText : "0");
+    totalPrice += price * quantity;
+    totalPriceText.innerText = totalPrice.toString();
+};
