@@ -253,6 +253,17 @@ nav a:hover {
   border-radius: 3px;
 }
 
+.AdminDelete {
+  position: absolute;
+  margin-bottom: 35vh;
+  margin-left: 12vw;
+}
+.AdminUpdate {
+  position: absolute;
+  margin-bottom: 35vh;
+  margin-right: 10vw;
+}
+
 #navAdmin {
   display: none;
 }

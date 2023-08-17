@@ -123,8 +123,8 @@ async function renderItem(itemId, name, src, type, price) {
         </div>
         ${
           isAdmin
-            ? `<button onclick="handleDeleteItem('${itemId}')">Delete</button>
-              <button onclick="showUpdateModal('${itemId}')">Update</button>
+            ? `<button class="AdminDelete" onclick="handleDeleteItem('${itemId}')">Delete</button>
+              <button class="AdminUpdate" onclick="showUpdateModal('${itemId}')">Update</button>
             `
             : ""
         }
@@ -195,7 +195,7 @@ const renderCart = async () => {
     const items = await itemsRes.json();
 
     //filter items
-    const userCart = user.cart.map(cartItem => cartItem.id)
+    const userCart = user.cart.map((cartItem) => cartItem.id);
     const filteredItems = items.filter((item) => userCart.includes(item._id));
     console.log("filteredItems", filteredItems);
     const itemContainer = document.querySelector(".cart") as HTMLDivElement;
@@ -204,18 +204,22 @@ const renderCart = async () => {
     filteredItems?.map((item) => {
       const renderDiv = document.createElement("div");
       renderDiv.id = item._id;
-      const itemDetails = user.cart.filter(cartItem => cartItem.id == item.id)
-      console.log("quan", itemDetails)
-      const {quantity} = itemDetails
+      const itemDetails = user.cart.filter(
+        (cartItem) => cartItem.id == item.id
+      );
+      console.log("quan", itemDetails);
+      const { quantity } = itemDetails;
       renderDiv.innerHTML = `
-            <h1>${item.name}</h1> 
-            <h1>Type: ${item.type}</h1> 
-            <h1>Price: ${item.price}</h1> 
-            <h1>Quantity: ${quantity}</h1> 
             <img class="item__Image "src="${item.src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
+            <h1 class="name">${item.name}</h1> 
+            <h1 class="type">Type: ${item.type}</h1> 
+            <h1>Price: ${item.price}</h1> 
+            
+            <h1>Quantity: ${quantity}</h1> 
             <button onclick="handleDeleteCartItem('${item._id}')">x</button>
             <input id="${item._id}" type="number" />
             <button onclick="handleCartItemQuantity('${item._id}')">update</button>
+            
           `;
 
       renderDiv.classList.add("renderDiv");
@@ -307,10 +311,10 @@ const handleCartItemQuantity = async (itemId: string) => {
   const userId = localStorage.getItem("id");
   if (!userId) return alert("Please login first.");
 
-  const quantityInput = document.getElementById(itemId) as HTMLInputElement
-  const quantity: number | null | undefined = parseInt(quantityInput.value)
+  const quantityInput = document.getElementById(itemId) as HTMLInputElement;
+  const quantity: number | null | undefined = parseInt(quantityInput.value);
 
-  if(!quantity || quantity === 0) return alert("quantity is not valid")
+  if (!quantity || quantity === 0) return alert("quantity is not valid");
 
   try {
     const res = await fetch("http://localhost:5500/item/changeItemQuantity", {
@@ -331,4 +335,4 @@ const handleCartItemQuantity = async (itemId: string) => {
     const errorMessage = await error.json();
     console.log(errorMessage);
   }
-}
+};
