@@ -213,11 +213,11 @@ nav a:hover {
 
   .name {
     position: absolute;
-    margin-top: 7.5vh;
+    margin-bottom: 15px;
   }
   .type {
     position: absolute;
-    margin-top: 19vh;
+    margin-top: 14vh;
   }
 }
 .renderDiv:hover {
@@ -226,23 +226,23 @@ nav a:hover {
 
 .bottom__RenderDiv {
   display: flex;
+  margin-top: 25vh;
   flex-direction: row;
-  align-items: center;
-  position: absolute;
   justify-content: space-between;
-  margin-top: 35vh;
-  margin-right: 15vw;
+  align-items: center;
+  .cart__Icon {
+    max-width: 27.5px;
+    max-height: 27.5px;
+    cursor: pointer;
+  }
+
+  .bottom__Price {
+    margin-right: 40px;
+  }
 }
 
 .renderDiv h1 {
   font-size: 1.2rem;
-}
-
-.cart__Icon {
-  margin-right: -15vw;
-  max-width: 27.5px;
-  max-height: 27.5px;
-  cursor: pointer;
 }
 
 .item__Image {
@@ -355,13 +355,76 @@ nav a:hover {
     margin-left: 20px;
   }
 }
-h1 {
-  position: absolute;
-  margin-bottom: -97px;
+
+.cart {
+  background-color: #ccc;
+  height: 200vh;
+  width: 75vw;
 }
-.Price {
-  margin-bottom: -101px;
+
+.cart__RenderDiv {
+  background-color: #fff;
+  width: 75vh;
+  height: 40vh;
+  display: flex;
+  flex-direction: row;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 10px;
+  h1 {
+    font-size: 1.5rem;
+  }
+  .cart__ItemImageContainer {
+    height: auto;
+    width: auto;
+    .cart__ItemImage {
+    }
+  }
+
+  .cart__ItemName {
+    position: absolute;
+    margin-right: 115px;
+  }
+
+  ion-icon {
+    margin-left: 150px;
+  }
+
+  .cart__ItemType {
+  }
+
+  .cart__ItemPrice {
+  }
 }
-.Quantity {
-  margin-bottom: -321px;
+
+.cart__Properties {
+  margin-left: 10vw;
+  display: flex;
+  flex-direction: column;
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  button:hover {
+    background-color: #0056b3;
+  }
+  .quantity__Input {
+    margin-bottom: 10px;
+  }
+}
+.cart__Remove {
+  font-size: 40px;
+}
+.cart__Remove:hover {
+  cursor: pointer;
+}
+.cart__PropertyHeader {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
 }

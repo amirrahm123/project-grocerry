@@ -173,7 +173,7 @@ function renderItem(itemId, name, src, type, price) {
             renderDiv.id = itemId;
             cartImg = "./shopping-cart-empty-side-view.png";
             isAdmin = localStorage.getItem("isAdmin") === "true";
-            renderDiv.innerHTML = "  \n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">\n  <h1 class=\"name\">" + name + "</h1> \n        <h1 class=\"type\">Type: " + type + "</h1> \n        <div class=bottom__RenderDiv>\n        <h1>Price: " + price + "$</h1> \n        <img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n        </div>\n        " + (isAdmin
+            renderDiv.innerHTML = "  \n  <img class=\"item__Image \"src=\"" + src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\">\n  <h1 class=\"name\">" + name + "</h1> \n        <h1 class=\"type\">Type: " + type + "</h1> \n        <div class=bottom__RenderDiv>\n        <h1 class=\"bottom__Price\">Price: " + price + "$</h1> \n        <img onclick=\"addToCart('" + itemId + "')\" class=\"cart__Icon \"src=\"" + cartImg + "\" alt=\"Item Image\">\n        </div>\n        " + (isAdmin
                 ? "<button class=\"AdminDelete\" onclick=\"handleDeleteItem('" + itemId + "')\">Delete</button>\n              <button class=\"AdminUpdate\" onclick=\"showUpdateModal('" + itemId + "')\">Update</button>\n            "
                 : "") + "\n  \n        ";
             renderDiv.classList.add("renderDiv");
@@ -281,8 +281,8 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
                     var itemDetails = user_1.cart.filter(function (cartItem) { return cartItem.id == item._id; })[0];
                     var quantity = itemDetails.quantity;
                     addToTotalPrice(parseInt(item.price), quantity);
-                    renderDiv.innerHTML = "\n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n            <h1 class=\"name\">" + item.name + "</h1> \n            <h1 class=\"type\">Type: " + item.type + "</h1> \n            <h1 class=\"Price\">Price: " + item.price + "</h1> \n            \n            <h1 class=\"Quantity\">Quantity: " + quantity + "</h1> \n            <button onclick=\"handleDeleteCartItem('" + item._id + "')\">Delete item from cart</button>\n            <input id=\"" + item._id + "\" type=\"number\" />\n            <button onclick=\"handleCartItemQuantity('" + item._id + "')\">update</button>\n            \n          ";
-                    renderDiv.classList.add("renderDiv");
+                    renderDiv.innerHTML = "<div class=Cart__ItemImageContainer>\n            <img class=\"cart__ItemImage \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 300px; max-height: 250px;\"> \n            </div>\n            <div class=\"cart__Properties\">\n            <div class=\"cart__PropertyHeader\">\n            <h1 class=\"cart__ItemName\">" + item.name + "</h1> \n            <ion-icon class=\"cart__Remove\" onclick=\"handleDeleteCartItem('" + item._id + "')\" name=\"close-circle\"></ion-icon>\n            </div>\n            <h1 class=\"cart__ItemType\">Type: " + item.type + "</h1> \n            <h1 class=\"cart__ItemPrice\"> $" + item.price + "</h1> \n            \n            <h1 class=\"Quantity\">Quantity: " + quantity + "</h1> \n         \n            <input class=\"quantity__Input\" placeholder=\"Quantity\" id=\"" + item._id + "\" type=\"number\" />\n            <button onclick=\"handleCartItemQuantity('" + item._id + "')\">update</button>\n         \n            </div>\n          ";
+                    renderDiv.classList.add("cart__RenderDiv");
                     itemContainer_1.appendChild(renderDiv);
                 });
                 return [3 /*break*/, 6];

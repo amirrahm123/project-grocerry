@@ -118,7 +118,7 @@ async function renderItem(itemId, name, src, type, price) {
   <h1 class="name">${name}</h1> 
         <h1 class="type">Type: ${type}</h1> 
         <div class=bottom__RenderDiv>
-        <h1>Price: ${price}$</h1> 
+        <h1 class="bottom__Price">Price: ${price}$</h1> 
         <img onclick="addToCart('${itemId}')" class="cart__Icon "src="${cartImg}" alt="Item Image">
         </div>
         ${
@@ -209,20 +209,26 @@ const renderCart = async () => {
       )[0];
       const { quantity } = itemDetails;
       addToTotalPrice(parseInt(item.price), quantity);
-      renderDiv.innerHTML = `
-            <img class="item__Image "src="${item.src}" alt="Item Image"  style="max-width: 100px; max-height: 100px;"> 
-            <h1 class="name">${item.name}</h1> 
-            <h1 class="type">Type: ${item.type}</h1> 
-            <h1 class="Price">Price: ${item.price}</h1> 
+      renderDiv.innerHTML = `<div class=Cart__ItemImageContainer>
+            <img class="cart__ItemImage "src="${item.src}" alt="Item Image"  style="max-width: 300px; max-height: 250px;"> 
+            </div>
+            <div class="cart__Properties">
+            <div class="cart__PropertyHeader">
+            <h1 class="cart__ItemName">${item.name}</h1> 
+            <ion-icon class="cart__Remove" onclick="handleDeleteCartItem('${item._id}')" name="close-circle"></ion-icon>
+            </div>
+            <h1 class="cart__ItemType">Type: ${item.type}</h1> 
+            <h1 class="cart__ItemPrice"> $${item.price}</h1> 
             
             <h1 class="Quantity">Quantity: ${quantity}</h1> 
-            <button onclick="handleDeleteCartItem('${item._id}')">Delete item from cart</button>
-            <input id="${item._id}" type="number" />
+         
+            <input class="quantity__Input" placeholder="Quantity" id="${item._id}" type="number" />
             <button onclick="handleCartItemQuantity('${item._id}')">update</button>
-            
+         
+            </div>
           `;
 
-      renderDiv.classList.add("renderDiv");
+      renderDiv.classList.add("cart__RenderDiv");
       itemContainer.appendChild(renderDiv);
     });
   } catch (error) {
