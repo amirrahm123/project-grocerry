@@ -247,7 +247,7 @@ function addToCart(itemId) {
     });
 }
 var renderCart = function () { return __awaiter(_this, void 0, void 0, function () {
-    var res, users, user_1, itemsRes, items, filteredItems, itemContainer_1, error_6;
+    var res, users, user_1, itemsRes, items, userCart_1, filteredItems, itemContainer_1, error_6;
     return __generator(this, function (_a) {
         switch (_a.label) {
             case 0:
@@ -270,14 +270,18 @@ var renderCart = function () { return __awaiter(_this, void 0, void 0, function 
                 return [4 /*yield*/, itemsRes.json()];
             case 4:
                 items = _a.sent();
-                filteredItems = items.filter(function (item) { var _a; return (_a = user_1.cart) === null || _a === void 0 ? void 0 : _a.includes(item._id); });
+                userCart_1 = user_1.cart.map(function (cartItem) { return cartItem.id; });
+                filteredItems = items.filter(function (item) { return userCart_1.includes(item._id); });
                 console.log("filteredItems", filteredItems);
                 itemContainer_1 = document.querySelector(".cart");
                 //render to screen
                 filteredItems === null || filteredItems === void 0 ? void 0 : filteredItems.map(function (item) {
                     var renderDiv = document.createElement("div");
                     renderDiv.id = item._id;
-                    renderDiv.innerHTML = "\n            <h1>" + item.name + "</h1> \n            <h1>Type: " + item.type + "</h1> \n            <h1>Price: " + item.price + "</h1> \n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n          ";
+                    var itemDetails = user_1.cart.filter(function (cartItem) { return cartItem.id == item.id; });
+                    console.log("quan", itemDetails);
+                    var quantity = itemDetails.quantity;
+                    renderDiv.innerHTML = "\n            <h1>" + item.name + "</h1> \n            <h1>Type: " + item.type + "</h1> \n            <h1>Price: " + item.price + "</h1> \n            <h1>Quantity: " + quantity + "</h1> \n            <img class=\"item__Image \"src=\"" + item.src + "\" alt=\"Item Image\"  style=\"max-width: 100px; max-height: 100px;\"> \n            <button onclick=\"handleDeleteCartItem('" + item._id + "')\">x</button>\n            <input id=\"" + item._id + "\" type=\"number\" />\n            <button onclick=\"handleCartItemQuantity('" + item._id + "')\">update</button>\n          ";
                     renderDiv.classList.add("renderDiv");
                     itemContainer_1.appendChild(renderDiv);
                 });
@@ -342,7 +346,7 @@ function showUpdateModal(itemId) {
         modalWrapper.style.display = "none";
     };
 }
-function handleRemoveFromCart(itemId) {
+function handleDeleteCartItem(itemId) {
     return __awaiter(this, void 0, void 0, function () {
         var userId, res, error_8, errorMessage;
         return __generator(this, function (_a) {
@@ -355,7 +359,7 @@ function handleRemoveFromCart(itemId) {
                 case 1:
                     _a.trys.push([1, 3, , 5]);
                     return [4 /*yield*/, fetch("http://localhost:5500/item/removeFromCart", {
-                            method: "DELETE",
+                            method: "PUT",
                             headers: {
                                 "Content-Type": "application/json"
                             },
@@ -383,3 +387,46 @@ function handleRemoveFromCart(itemId) {
         });
     });
 }
+var handleCartItemQuantity = function (itemId) { return __awaiter(_this, void 0, void 0, function () {
+    var userId, quantityInput, quantity, res, error_9, errorMessage;
+    return __generator(this, function (_a) {
+        switch (_a.label) {
+            case 0:
+                userId = localStorage.getItem("id");
+                if (!userId)
+                    return [2 /*return*/, alert("Please login first.")];
+                quantityInput = document.getElementById(itemId);
+                quantity = parseInt(quantityInput.value);
+                if (!quantity || quantity === 0)
+                    return [2 /*return*/, alert("quantity is not valid")];
+                _a.label = 1;
+            case 1:
+                _a.trys.push([1, 3, , 5]);
+                return [4 /*yield*/, fetch("http://localhost:5500/item/changeItemQuantity", {
+                        method: "PUT",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ itemId: itemId, userId: userId, quantity: quantity })
+                    })];
+            case 2:
+                res = _a.sent();
+                if (res.ok) {
+                    alert("Item quantity updated successfully !");
+                    location.reload();
+                }
+                else {
+                    console.log("Failed to update item quantity.");
+                }
+                return [3 /*break*/, 5];
+            case 3:
+                error_9 = _a.sent();
+                return [4 /*yield*/, error_9.json()];
+            case 4:
+                errorMessage = _a.sent();
+                console.log(errorMessage);
+                return [3 /*break*/, 5];
+            case 5: return [2 /*return*/];
+        }
+    });
+}); };

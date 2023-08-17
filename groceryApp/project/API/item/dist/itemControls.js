@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -43,7 +54,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
     return r;
 };
 exports.__esModule = true;
-exports.handleRemoveFromCart = exports.addToCart = exports.updateItem = exports.deleteItem = exports.addItem = exports.getItem = void 0;
+exports.updateItemQuantity = exports.handleRemoveFromCart = exports.addToCart = exports.updateItem = exports.deleteItem = exports.addItem = exports.getItem = void 0;
 var userModel_1 = require("../user/userModel");
 var itemModel_1 = require("./itemModel");
 exports.getItem = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
@@ -142,7 +153,7 @@ exports.addToCart = function (req, res) { return __awaiter(void 0, void 0, void 
                     return [2 /*return*/, res.send("permission denied").status(403)];
                 cart = selectedUser.cart || [];
                 //update the user cart
-                return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: __spreadArrays(cart, [itemId]) })];
+                return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: __spreadArrays(cart, [{ id: itemId, quantity: 1 }]) })];
             case 2:
                 //update the user cart
                 _b.sent();
@@ -169,7 +180,7 @@ exports.handleRemoveFromCart = function (req, res) { return __awaiter(void 0, vo
                 selectedUser = _b.sent();
                 if (!selectedUser)
                     return [2 /*return*/, res.send("permission denied").status(403)];
-                updatedcart = selectedUser.cart.filter(function (cartItemId) { return cartItemId !== itemId_1; });
+                updatedcart = selectedUser.cart.filter(function (cartItem) { return cartItem.id !== itemId_1; });
                 return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: updatedcart })];
             case 2:
                 _b.sent();
@@ -179,6 +190,37 @@ exports.handleRemoveFromCart = function (req, res) { return __awaiter(void 0, vo
                 err_3 = _b.sent();
                 res.send("Internal server error").status(500);
                 console.log(err_3);
+                return [3 /*break*/, 4];
+            case 4: return [2 /*return*/];
+        }
+    });
+}); };
+exports.updateItemQuantity = function (req, res) { return __awaiter(void 0, void 0, void 0, function () {
+    var _a, itemId_2, userId, quantity_1, selectedUser, updatedcart, err_4;
+    return __generator(this, function (_b) {
+        switch (_b.label) {
+            case 0:
+                _b.trys.push([0, 3, , 4]);
+                _a = req.body, itemId_2 = _a.itemId, userId = _a.userId, quantity_1 = _a.quantity;
+                return [4 /*yield*/, userModel_1["default"].findById(userId)];
+            case 1:
+                selectedUser = _b.sent();
+                if (!selectedUser)
+                    return [2 /*return*/, res.send("permission denied").status(403)];
+                updatedcart = selectedUser.cart.map(function (cartItem) {
+                    if (cartItem.id === itemId_2)
+                        return __assign(__assign({}, cartItem), { quantity: quantity_1 });
+                    return cartItem;
+                });
+                return [4 /*yield*/, userModel_1["default"].updateOne({ _id: userId }, { cart: updatedcart })];
+            case 2:
+                _b.sent();
+                res.send("Item removed from cart successfully").status(200);
+                return [3 /*break*/, 4];
+            case 3:
+                err_4 = _b.sent();
+                res.send("Internal server error").status(500);
+                console.log(err_4);
                 return [3 /*break*/, 4];
             case 4: return [2 /*return*/];
         }

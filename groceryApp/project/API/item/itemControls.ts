@@ -59,7 +59,7 @@ export const addToCart = async (req: any, res: any) => {
     const cart = selectedUser.cart || [];
 
     //update the user cart
-    await UserModel.updateOne({ _id: userId }, { cart: [...cart, itemId] });
+    await UserModel.updateOne({ _id: userId }, { cart: [...cart, {id: itemId, quantity: 1}] });
     res.send("user updated successfuly").status(200);
   } catch (err) {
     res.send("Internal server error").status(500);
@@ -73,7 +73,26 @@ export const handleRemoveFromCart = async (req: any, res: any) => {
     const selectedUser = await UserModel.findById(userId);
     if (!selectedUser) return res.send("permission denied").status(403);
 
-    const updatedcart = selectedUser.cart.filter((cartItemId: string) => cartItemId !== itemId);
+    const updatedcart = selectedUser.cart.filter((cartItem: any) => cartItem.id !== itemId);
+
+    await UserModel.updateOne({ _id: userId }, { cart: updatedcart });
+    res.send("Item removed from cart successfully").status(200);
+  } catch (err) {
+    res.send("Internal server error").status(500);
+    console.log(err);
+  }
+}
+
+export const updateItemQuantity = async (req: any, res: any) => {
+  try{
+    const { itemId, userId, quantity } = req.body;
+    const selectedUser = await UserModel.findById(userId);
+    if (!selectedUser) return res.send("permission denied").status(403);
+
+    const updatedcart = selectedUser.cart.map(cartItem => {
+      if(cartItem.id === itemId) return {...cartItem, quantity}
+      return cartItem
+    })
 
     await UserModel.updateOne({ _id: userId }, { cart: updatedcart });
     res.send("Item removed from cart successfully").status(200);
