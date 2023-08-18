@@ -357,74 +357,94 @@ nav a:hover {
 }
 
 .cart {
-  background-color: #ccc;
-  height: 200vh;
-  width: 75vw;
+  background-color: #f9f9f9;
+  padding: 20px;
 }
 
 .cart__RenderDiv {
   background-color: #fff;
-  width: 75vh;
-  height: 40vh;
+  padding: 15px;
   display: flex;
-  flex-direction: row;
-  border-bottom: 1px solid #ccc;
-  padding-bottom: 10px;
+  flex-direction: column;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  width: 60%;
+  height: 75%;
   h1 {
     font-size: 1.5rem;
   }
-  .cart__ItemImageContainer {
-    height: auto;
-    width: auto;
-    .cart__ItemImage {
-    }
-  }
+}
 
-  .cart__ItemName {
-    position: absolute;
-    margin-right: 115px;
-  }
+.cart__ItemName {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
 
-  ion-icon {
-    margin-left: 150px;
-  }
+.cart__Remove {
+  font-size: 1.5rem;
+  cursor: pointer;
+  align-self: flex-end;
+  color: #007bff;
+  transition: color 0.3s ease;
+}
 
-  .cart__ItemType {
-  }
+.cart__Remove:hover {
+  color: #0056b3;
+}
 
-  .cart__ItemPrice {
-  }
+.cart__PropertyHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 10px;
+  padding-top: 10px;
+  border-top: 1px solid #ccc;
 }
 
 .cart__Properties {
-  margin-left: 10vw;
   display: flex;
   flex-direction: column;
-  button {
-    background-color: #007bff;
-    color: #fff;
-    border: none;
-    border-radius: 5px;
-    padding: 10px 20px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-  }
-  button:hover {
-    background-color: #0056b3;
-  }
-  .quantity__Input {
-    margin-bottom: 10px;
-  }
+  margin-top: 10px;
 }
-.cart__Remove {
-  font-size: 40px;
-}
-.cart__Remove:hover {
+
+.cart__Properties button {
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 10px 20px;
   cursor: pointer;
+  transition: background-color 0.3s ease;
+  margin-top: 10px;
 }
-.cart__PropertyHeader {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
+
+.cart__Properties button:hover {
+  background-color: #0056b3;
+}
+
+.quantity__Input {
+  width: 50px;
+  padding: 5px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+  text-align: center;
+  margin-right: 10px;
+}
+
+.summery {
+  margin-right: 2%;
+  background-color: #007bff;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  margin-top: 100px;
+}
+
+.summery h1 {
+  margin: 0;
+  font-size: 1rem;
 }
