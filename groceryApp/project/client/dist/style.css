@@ -25,17 +25,24 @@ body {
   /* Higher z-index to ensure the navbar is on top */
 }
 
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+  margin: 0;
+  /* Remove default margin to prevent horizontal offset */
+  padding: 0;
+  /* Remove default padding */
+  justify-content: center;
+  /* Center the navigation links horizontally */
+}
+
 .logo {
   margin-top: 20px;
   font-size: 40px;
   margin-left: 1vw;
   margin-right: 25vw;
-}
-
-nav ul {
-  list-style: none;
-  display: flex;
-  gap: 20px;
+  width: 12%;
 }
 
 nav li {
