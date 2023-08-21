@@ -1,0 +1,25 @@
+
+user {
+    _id
+    firstname
+    lastname
+    phone
+    address
+    email
+    roll:"user"
+    ....
+}
+
+
+gameBoard{ 
+    gameId
+    date:2032-7-8
+    score
+    level
+    userId:1234
+
+}
+       
+   
+
+
