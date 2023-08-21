@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./dist/style.css" />
+    <script src="./dist/index.js"></script>
+    <script src="./controllers/dist/itemController.js"></script>
+    <script src="./controllers/dist/userController.js"></script>
+    <script src="../API/item/itemControls.ts"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        renderCart();
+      });
+    </script>
+  </head>
+  <body>
+    <div class="navBar__Container">
+      <div class="logo">
+        <ion-icon name="storefront-outline"></ion-icon>
+      </div>
+      <nav>
+        <ul>
+          <li>
+            <a href="#login" id="navLogin" onclick="showModal()">Login</a>
+          </li>
+
+          <li>
+            <a href="#register" id="navRegister" onclick="showRegisterModal()"
+              >Register</a
+            >
+          </li>
+
+          <li>
+            <a href="#login" id="navLogout" onclick="logOut()">Logout</a>
+          </li>
+
+          <li><a href="./index.html">Home</a></li>
+          <li><a href="./cart.html">Cart</a></li>
+          <li><a href="#checkout">Checkout</a></li>
+          <li><a href="#about">About Us</a></li>
+          <li><a href="./admin.html" id="navAdmin">Admin</a></li>
+        </ul>
+      </nav>
+    </div>
+
+    <div class="modal__wrapper" id="register__Modal">
+      <div class="register__Container">
+        <h2>Register</h2>
+        <input
+          type="text"
+          name="userNameInput"
+          id="name__Input"
+          placeholder="Name"
+        />
+        <input
+          type="password"
+          name="passwordInput"
+          id="password__Input"
+          placeholder="Password"
+        />
+        <h3>
+          Already have an account?
+          <a href="#login" onclick="showModal()">Login</a>
+        </h3>
+        <button type="submit" onclick="handleAddUser()">submit</button>
+      </div>
+    </div>
+
+    <div class="modal__wrapper" id="login__Modal">
+      <div class="modal__content">
+        <h2>Login</h2>
+        <input
+          type="text"
+          name="userNameInput"
+          id="loginName__Input"
+          placeholder="Name"
+        />
+        <input
+          type="password"
+          name="passwordInput"
+          id="loginPassword__Input"
+          placeholder="Password"
+        />
+        <button id="loginBtn" onclick="handleLoginAndCloseModal()">
+          Login
+        </button>
+      </div>
+    </div>
+
+    <div class="cart"></div>
+    <div class="summery">
+      <h1 class="totalPrice"></h1>
+    </div>
+  </body>
+  <script
+    type="module"
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+  ></script>
+  <script
+    nomodule
+    src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+  ></script>
+</html>
