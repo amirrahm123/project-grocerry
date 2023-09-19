@@ -39,6 +39,10 @@ async function handleAddUser() {
       localStorage.setItem("id", resJson.id);
       localStorage.setItem("displayName", resJson.name);
       localStorage.setItem("isAdmin", resJson.isAdmin);
+      const registerModalWrapper = document.querySelector(
+        "#register__Modal"
+      ) as HTMLDivElement;
+      registerModalWrapper.style.display = "none";
       navInit();
     } else {
       console.log("Failed to add User.");

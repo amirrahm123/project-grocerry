@@ -89,7 +89,6 @@ function userMsg() {
     const renderDiv = document.createElement("div");
     renderDiv.classList.add("userMsg");
     renderDiv.innerHTML = `<h1>Welcome back, ${name}</h1>`;
-
     const containerElement = document.querySelector(
       ".userMsg__Conatiner"
     ) as HTMLDivElement;

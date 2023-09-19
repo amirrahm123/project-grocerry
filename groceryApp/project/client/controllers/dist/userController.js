@@ -62,7 +62,7 @@ var handleGetUsers = function () { return __awaiter(_this, void 0, void 0, funct
 }); };
 function handleAddUser() {
     return __awaiter(this, void 0, void 0, function () {
-        var nameInput, passwordInput, newUser, res, resJson, error_2, errorMessage;
+        var nameInput, passwordInput, newUser, res, resJson, registerModalWrapper, error_2, errorMessage;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -93,6 +93,8 @@ function handleAddUser() {
                     localStorage.setItem("id", resJson.id);
                     localStorage.setItem("displayName", resJson.name);
                     localStorage.setItem("isAdmin", resJson.isAdmin);
+                    registerModalWrapper = document.querySelector("#register__Modal");
+                    registerModalWrapper.style.display = "none";
                     navInit();
                     return [3 /*break*/, 5];
                 case 4:
